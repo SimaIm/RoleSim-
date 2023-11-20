@@ -8,6 +8,3 @@ This repository contains the C++ implementation of the following algorithms:
 - **RS***: RoleSim* 
 - **Ths-RS***: Threshold-based RoleSim* 
 - **SSRS***: Single Source RoleSim* 
-
-## Paper Reference
-For a detailed understanding of the methodology behind RoleSim*, refer to the [This Paper](https://link.springer.com/article/10.1007/s11280-021-00925-z).
