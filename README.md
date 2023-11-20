@@ -14,18 +14,16 @@ For a detailed understanding of the methodology behind variants of RoleSim*, ref
 All algorithms are implemented in C++. Variants of the RoleSim* algorithm use the Stanford Network Analysis Platform (SNAP), which provides general-purpose network analysis functions.
 To use the RoleSim* variants with SNAP, it is necessary to configure Visual Studio. Follow the instructions in [this link](https://snap.stanford.edu/) for more details.
 
-
 ## List of Functions
-RoleSimStar: all-pairs RS* similarity function.
-SSRSStar_OptV1_Rec: Single-Source RS* similarity function
-SSRSStar_OptV2_Rec: Single-Source RS* similarity function using the equivalent nodes to ignore repeated computations for pairs with equal neighbours.
-SSRSStar_OptV2_Trsh: Threshold-based Single-Source RS* similarity function using the equivalent nodes to ignore repeated computations for pairs with equal neighbours and considering a threshold to stop computing similarity after a fixed number of iterations.    
-FindEqueivalents: This function finds nodes with the equal in-neighbours.
 
+1. RoleSimStar: All-pairs RoleSim* similarity function.
+2. SSRSStar_OptV1_Rec: Single-Source RoleSim* similarity function.
+3. SSRSStar_OptV2_Rec: Single-Source RoleSim* similarity function using equivalent nodes to avoid repeated computations for pairs with equal neighbors.
+4. SSRSStar_OptV2_Trsh: Threshold-based Single-Source RoleSim* similarity function using equivalent nodes to avoid repeated computations for pairs with equal neighbors. It considers a threshold to stop computing similarity after a fixed number of iterations.
+5. FindEquivalents: This function finds nodes with an equal in-neighbors set.
 
 ## Usage
-There are some initializations before calling given similarity functions.
-First, we initialize parameters of the algorithm named according to the paper, and then loading the graph file using SNAP Library function. Third, computing an array of indegree’s for the input graphs.
+
 
   /* ------ Initializing Parameters---------------*/
     int kmax = 10; // # of iterations in the all-pairs version or depth in single-source version
@@ -40,16 +38,12 @@ First, we initialize parameters of the algorithm named according to the paper, a
 
     /* ------ Extract Indegree Vector*/
     vector<int> indegVec(N);
-    BuildGraph(G, indegVec);
-   
-To compute similarity of all pairs of nodes in the graph, we use RoleSimStar function from RSS.cpp file. The output of this function is a NxN matrix of similarities, where N is the number of nodes in the graph.
+    BuildGraph(G, indegVec);   
 
     /* ------ All-pairs Similarity computation ---------*/
     vector<vector<double>> simMtx(N, vector<double>(N, 0.2));// similarity matrix 
     RoleSimStar(G, simMtx, kmax, beta, lambda);
 
-
-To compute similarity of a query node with all other nodes in the graph, we use SSRSStar_OptV1 (SSRSS_V1.cpp), SSRSStar_OptV2 (SSRSS_V2.cpp), SSRSStar_OptV2_Trsh (SSRSS_V3.cpp) functions. The output of these functions is a vector of size N, containing similarity of input query with all other nodes in the graph. Functions SSRSStar_OptV2 and SSRSStar_OptV2_Trsh, use an equivalency vector equiSet. Function FindEqueivalents computes the equiSet vector.
 
     /* ------ Finding Equivalents Nodes, IF USING SSRS* VERSION2 */
     vector<int> equiSet;
